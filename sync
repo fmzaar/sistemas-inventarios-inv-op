@@ -1,0 +1,55 @@
+#!/bin/bash
+
+function addRepo() {
+  repo=$1
+  git remote add $repo git@gitlab.com:crowdex-main/$repo.git
+}
+
+function sync() {
+  repo=$1
+  git push --no-verify $repo split-$repo:main --force
+}
+
+function performSplit() {
+  repo=$1
+  git subtree split -P packages/$repo -b split-$repo
+}
+
+# https://stackoverflow.com/questions/17392869/how-to-print-a-file-excluding-comments-and-blank-lines-using-grep-sed#answer-17396799
+repos=`cat ./repos.txt | awk '!/^ *#/ && NF'`
+current_branch=$(git branch | grep '*' | sed s/\*\ //);
+
+if [ $current_branch != "main" ]; then
+  echo "Must be on main branch to sync.";
+  exit 1;
+fi
+
+echo "Making sure main is up to date"
+git pull
+
+echo "Ensuring remotes added"
+for repo in $repos
+do
+  addRepo $repo
+done
+
+echo "Fetching latest..."
+git fetch --all
+
+echo "Perform package split..."
+for repo in $repos
+do
+  performSplit $repo &
+done
+
+wait
+
+echo "Syncing repos..."
+for repo in $repos
+do
+  sync $repo &
+done
+
+wait
+
+echo "done"

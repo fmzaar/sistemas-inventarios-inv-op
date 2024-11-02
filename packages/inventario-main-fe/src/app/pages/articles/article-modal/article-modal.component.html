@@ -1,0 +1,83 @@
+<div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
+    <div
+      class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+      <div>
+        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+          {{ isEdit ? 'Editar Artículo' : 'Nuevo Artículo' }}
+        </h3>
+        <div class="mt-2">
+          <form #articleForm="ngForm" (ngSubmit)="saveArticle(articleForm)">
+            <div class="flex flex-wrap justify-around">
+              <div class="col-span-6">
+                <label for="code" class="block text-sm font-medium text-gray-700">Código</label>
+                <input id="code" [(ngModel)]="article.code" name="code" placeholder="Código" class="border p-2"
+                       required minlength="3">
+                <div *ngIf="articleForm.submitted && articleForm.controls['code'].errors" class="text-red-500">
+                  <div *ngIf="articleForm.controls['code'].errors['required']">El código es obligatorio.</div>
+                  <div *ngIf="articleForm.controls['code'].errors['minlength']">El código debe tener al menos 3
+                    caracteres.
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-6">
+                <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
+                <input id="name" [(ngModel)]="article.name" name="name" placeholder="Nombre" class="border p-2"
+                       required>
+                <div *ngIf="articleForm.submitted && articleForm.controls['name'].errors" class="text-red-500">
+                  <div *ngIf="articleForm.controls['name'].errors['required']">El nombre es obligatorio.</div>
+                </div>
+              </div>
+              <div class="col-span-6">
+                <label for="description" class="block text-sm font-medium text-gray-700">Descripción</label>
+                <input id="description" [(ngModel)]="article.description" name="description" placeholder="Descripción"
+                       class="border p-2" required>
+                <div *ngIf="articleForm.submitted && articleForm.controls['description'].errors" class="text-red-500">
+                  <div *ngIf="articleForm.controls['description'].errors['required']">La descripción es obligatoria.
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-6">
+                <label for="price" class="block text-sm font-medium text-gray-700">Precio</label>
+                <input id="price" [(ngModel)]="article.price" name="price" placeholder="Precio" class="border p-2"
+                       required pattern="^[0-9]+(\.[0-9]{1,2})?$">
+                <div *ngIf="articleForm.submitted && articleForm.controls['price'].errors" class="text-red-500">
+                  <div *ngIf="articleForm.controls['price'].errors['required']">El precio es obligatorio.</div>
+                  <div *ngIf="articleForm.controls['price'].errors['pattern']">El precio debe ser un número válido.
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-9">
+                <label for="inventoryModel" class="block text sm font-medium text-gray-700">Modelo de Inventario</label>
+                <select id="inventoryModel" [(ngModel)]="article.inventoryModel" name="inventoryModel"
+                        class="border p-2"
+                        required>
+                  <option value="">Seleccionar Modelo de Inventario</option>
+                  <option *ngFor="let inventory of inventories" [value]="inventory.key">{{ inventory.name }}</option>
+                </select>
+                <div *ngIf="articleForm.submitted && articleForm.controls['inventoryModel'].errors"
+                     class="text-red-500">
+                  <div *ngIf="articleForm.controls['inventoryModel'].errors['required']">El modelo de inventario es
+                    obligatorio.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-5 sm:mt-6">
+              <button type="submit"
+                      class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
+                {{ isEdit ? 'Guardar Cambios' : 'Crear Artículo' }}
+              </button>
+              <button type="button" (click)="closeModal()"
+                      class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:text-sm">
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

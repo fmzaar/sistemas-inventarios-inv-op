@@ -1,0 +1,26 @@
+.register-container {
+  padding: 16px;
+  min-width: 400px;
+  width: max-content;
+
+  mat-card-title {
+    display: flex;
+    justify-content: initial;
+
+    input {
+      border-radius: 16px;
+    }
+  }
+  &__action {
+
+    &__legend {
+      margin: 10px auto;
+
+      a {
+        color: black;
+        font-weight: 600;
+        text-decoration: none;
+      }
+    }
+  }
+}

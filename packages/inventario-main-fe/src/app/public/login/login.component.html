@@ -1,0 +1,48 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="max-w-md w-full bg-white shadow-md rounded-lg p-8">
+    <h2 class="text-2xl font-bold mb-6 text-gray-900">Iniciar Sesión</h2>
+    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700">Correo Electrónico</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          [ngClass]="{ 'border-red-500': loginForm.get('email')?.invalid && loginForm.get('email')?.touched }"
+        />
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+             class="text-red-500 text-sm mt-1">
+          El correo electrónico es requerido.
+        </div>
+      </div>
+      <div class="mb-6">
+        <label for="password" class="block text-gray-700">Contraseña</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          [ngClass]="{ 'border-red-500': loginForm.get('password')?.invalid && loginForm.get('password')?.touched }"
+        />
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+             class="text-red-500 text-sm mt-1">
+          La contraseña es requerida.
+        </div>
+      </div>
+
+      <div>
+        <a routerLink="/register" class="text-indigo-600 hover:underline">¿No tienes cuenta? Regístrate</a>
+      </div>
+      <div>
+        <button
+          type="submit"
+          class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          [disabled]="loginForm.invalid"
+        >
+          Iniciar Sesión
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

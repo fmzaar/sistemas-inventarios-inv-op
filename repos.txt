@@ -1,0 +1,5 @@
+# List of repositories to synchronize
+# One on each line
+
+crowdex-main-be
+crowdex-main-fe

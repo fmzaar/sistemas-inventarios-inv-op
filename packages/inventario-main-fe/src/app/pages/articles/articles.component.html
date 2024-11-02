@@ -1,0 +1,68 @@
+<div class="container mx-auto p-4">
+  <h1 class="text-2xl font-bold mb-4">Artículos</h1>
+
+  <div class="mb-4">
+    <button (click)="openNewArticleModal()"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Nuevo Artículo
+    </button>
+  </div>
+
+  <h2 class="text-xl font-semibold mb-2">Lista de Artículos</h2>
+  <table class="w-full border-collapse">
+    <thead>
+    <tr>
+      <th class="border p-2">Código</th>
+      <th class="border p-2">Nombre</th>
+      <th class="border p-2">Descripción</th>
+      <th class="border p-2">Precio</th>
+      <th class="border p-2">Modelo de Inventario</th>
+      <th class="border p-2">Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngIf="(articles$ | async) as articles; else noArticles">
+      <ng-container *ngIf="articles.length > 0; else noArticles">
+        <tr *ngFor="let article of articles">
+          <td class="border p-2">{{ article.code }}</td>
+          <td class="border p-2">{{ article.name }}</td>
+          <td class="border p-2">{{ article.description }}</td>
+          <td class="border p-2">{{ article.price | currency: 'USD': 'symbol' : '1.2-2' }}</td>
+          <td class="border p-2">{{ findInventory(article.inventoryModel) }}</td>
+          <td class="border p-2 flex space-x-2">
+            <button (click)="openInventory(article)"
+                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded">Configurar Inventario
+            </button>
+            <button (click)="openEditArticleModal(article)"
+                    class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded">Editar
+            </button>
+            <button (click)="deleteArticle(article)"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">Eliminar
+            </button>
+          </td>
+        </tr>
+      </ng-container>
+    </ng-container>
+    <ng-template #noArticles>
+      <tr>
+        <td class="border p-2" colspan="6">No hay artículos</td>
+      </tr>
+    </ng-template>
+    </tbody>
+  </table>
+</div>
+
+<app-article-modal
+  *ngIf="isModalOpen"
+  [article]="selectedArticle"
+  [isEdit]="isEdit"
+  (close)="closeModal()"
+  (save)="saveArticle($event)"
+></app-article-modal>
+<app-inventory-config-modal
+  *ngIf="isInventoryModalOpen"
+  [inventory]="selectedInventory"
+  [articleCode]="selectedArticleCode"
+  (close)="closeInventoryModal()"
+  (save)="saveInventory($event)"
+></app-inventory-config-modal>
+<app-confirm-modal></app-confirm-modal>

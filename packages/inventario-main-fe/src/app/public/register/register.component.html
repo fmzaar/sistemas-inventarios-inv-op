@@ -1,0 +1,63 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="max-w-md w-full bg-white shadow-md rounded-lg p-8">
+    <h2 class="text-2xl font-bold mb-6 text-gray-900">Regístrate</h2>
+    <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700">Correo Electrónico</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          [ngClass]="{ 'border-red-500': registerForm.get('email')?.invalid && registerForm.get('email')?.touched }"
+        />
+        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-red-500 text-sm mt-1">
+          <ng-container *ngIf="registerForm.get('email')?.errors?.['required']">
+            El correo electrónico es requerido.
+          </ng-container>
+          <ng-container *ngIf="registerForm.get('email')?.errors?.['email']">
+            El correo electrónico debe ser válido.
+          </ng-container>
+        </div>
+      </div>
+      <div class="mb-6">
+        <label for="password" class="block text-gray-700">Contraseña</label>
+        <div class="relative">
+          <input
+            id="password"
+            type="{{hidePassword ? 'password' : 'text'}}"
+            formControlName="password"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            [ngClass]="{ 'border-red-500': registerForm.get('password')?.invalid && registerForm.get('password')?.touched }"
+          />
+          <button type="button" (click)="hidePassword = !hidePassword" class="absolute inset-y-0 right-0 px-3 flex items-center text-sm leading-5">
+            <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path *ngIf="hidePassword" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19.5C7.053 19.5 3 15.447 3 10.5S7.053 1.5 12 1.5c1.444 0 2.817.366 4.013 1.011m2.675 2.675A9.97 9.97 0 0121 10.5c0 5.052-4.053 9.105-9 9.105a9.972 9.972 0 01-4.175-.825M3.6 3.6L20.4 20.4"></path>
+              <path *ngIf="!hidePassword" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.314 4.5 12 4.5c4.687 0 8.268 3.443 9.542 7.5-1.274 4.057-4.855 7.5-9.542 7.5-4.686 0-8.268-3.443-9.542-7.5z"></path>
+            </svg>
+          </button>
+        </div>
+        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-red-500 text-sm mt-1">
+          <ng-container *ngIf="registerForm.get('password')?.errors?.['required']">
+            La contraseña es requerida.
+          </ng-container>
+          <ng-container *ngIf="registerForm.get('password')?.errors?.['minlength']">
+            La contraseña debe tener al menos 6 caracteres.
+          </ng-container>
+        </div>
+      </div>
+      <div>
+        <button
+          type="submit"
+          class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          [disabled]=" registerForm.invalid"
+        >
+          Registrarse
+        </button>
+      </div>
+      <div class="mt-6 text-center">
+        <span>¿Ya tienes cuenta? <a routerLink="/login" class="text-indigo-600 hover:underline">Inicia sesión</a></span>
+      </div>
+    </form>
+  </div>
+</div>

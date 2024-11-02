@@ -1,0 +1,126 @@
+<div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
+    <div
+      class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+      <div>
+        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+          Configuración de Inventario de Artículo
+        </h3>
+        <div class="mt-2">
+          <form [formGroup]="inventoryForm" (ngSubmit)="saveInventory()">
+            <div class="flex flex-wrap justify-around">
+              <div class="col-span-6">
+                <label for="optimalBatch" class="block text-sm font-medium text-gray-700">Lote Óptimo</label>
+                <input id="optimalBatch" type="number" formControlName="optimalBatch" name="optimalBatch"
+                       placeholder="Lote Óptimo" required>
+                <div *ngIf=" inventoryForm.controls['optimalBatch'].errors"
+                     class="text-red-500">
+                  <div *ngIf="inventoryForm.controls['optimalBatch'].errors['required']">El lote óptimo es obligatorio.
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-6">
+                <label for="reorderPoint" class="block text-sm font-medium text-gray-700">Punto de Reorden</label>
+                <input id="reorderPoint" type="number" formControlName="reorderPoint" name="reorderPoint"
+                       placeholder="Punto de Reorden" required>
+                <div *ngIf=" inventoryForm.controls['reorderPoint'].errors"
+                     class="text-red-500">
+                  <div *ngIf="inventoryForm.controls['reorderPoint'].errors['required']">El punto de reorden es
+                    obligatorio.
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-6">
+                <label for="safetyStock" class="block text-sm font-medium text-gray-700">Stock de Seguridad</label>
+                <input id="safetyStock" type="number" formControlName="safetyStock" name="safetyStock"
+                       placeholder="Stock de Seguridad" required>
+                <div *ngIf=" inventoryForm.controls['safetyStock'].errors"
+                     class="text-red-500">
+                  <div *ngIf="inventoryForm.controls['safetyStock'].errors['required']">El stock de seguridad es
+                    obligatorio.
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-6">
+                <label for="cgi" class="block text-sm font-medium text-gray-700">CGI</label>
+                <input id="cgi" type="number" formControlName="CGI" name="cgi"
+                       placeholder="CGI" required>
+                <div *ngIf=" inventoryForm.controls['CGI'].errors"
+                     class="text-red-500">
+                  <div *ngIf="inventoryForm.controls['CGI'].errors['required']">El CGI es obligatorio.
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-6">
+                <label for="currentStock" class="block text-sm font-medium text-gray-700">Stock Actual</label>
+                <input id="currentStock" type="number" formControlName="currentStock" name="currentStock"
+                       placeholder="Stock Actual" required>
+                <div *ngIf=" inventoryForm.controls['currentStock'].errors"
+                     class="text-red-500">
+                  <div *ngIf="inventoryForm.controls['currentStock'].errors['required']">El stock actual es
+                    obligatorio.
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-6">
+                <label for="storageCost" class="block text-sm font-medium text-gray-700">Costo de Almacenamiento</label>
+                <input id="storageCost" type="number" formControlName="storageCost" name="storageCost"
+                       placeholder="Costo de Almacenamiento" required>
+                <div *ngIf=" inventoryForm.controls['storageCost'].errors" class="text-red-500">
+                  <div *ngIf="inventoryForm.controls['storageCost'].errors['required']">El costo de almacenamiento es
+                    obligatorio.
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-6">
+                <label for="orderCost" class="block text-sm font-medium text-gray-700">Costo de Orden</label>
+                <input id="orderCost" type="number" formControlName="orderCost" name="orderCost"
+                       placeholder="Costo de Orden" required>
+                <div *ngIf=" inventoryForm.controls['orderCost'].errors"
+                     class="text-red-500">
+                  <div *ngIf="inventoryForm.controls['orderCost'].errors['required']">El costo de orden es
+                    obligatorio.
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-6">
+                <label for="maxQuantity" class="block text-sm font-medium text-gray-700">Cantidad Máxima</label>
+                <input id="maxQuantity" type="number" formControlName="maxQuantity" name="maxQuantity"
+                       placeholder="Cantidad Máxima" required>
+                <div *ngIf=" inventoryForm.controls['maxQuantity'].errors"
+                     class="text-red-500">
+                  <div *ngIf="inventoryForm.controls['maxQuantity'].errors['required']">La cantidad máxima es
+                    obligatoria.
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-6">
+                <label for="orderQuantity" class="block text-sm font-medium text-gray-700">Cantidad de Pedido</label>
+                <input id="orderQuantity" type="number" formControlName="orderQuantity" name="orderQuantity"
+                       placeholder="Cantidad de Pedido" required>
+                <div *ngIf=" inventoryForm.controls['orderQuantity'].errors"
+                     class="text-red-500">
+                  <div *ngIf="inventoryForm.controls['orderQuantity'].errors['required']">La cantidad de pedido es
+                    obligatoria.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-5 sm:mt-6">
+              <button type="submit"
+                      class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm">
+                Guardar
+              </button>
+              <button type="button" (click)="closeModal()"
+                      class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:text-sm">
+                Cancelar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

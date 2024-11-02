@@ -1,0 +1,9 @@
+.app-wrapper {
+  min-height: 100vh;
+  overflow: hidden;
+  background-size: cover;
+
+  &__container {
+    min-height: 600px;
+  }
+}
